@@ -3,11 +3,15 @@ Template Author: Untree.co
 Template License: https://creativecommons.org/licenses/by/3.0/
 Author URI: https://untree.co/
 
-Twitter: https://twitter.com/Untree_co
-Facebook: https://web.facebook.com/Untree.co/
+Refining: Rafael Agar
+PHP Development: Rafael Agar
+Database SQL: Rafael Agar
 
 
 CREDITS
+
+PHP 8
+MySQL 8
 
 * jQuery
 * Popper
