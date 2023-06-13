@@ -128,9 +128,9 @@ if(!$auth){
     <thead>
         <tr class="tr-text">
             <th>Name</th>
-            <th>Description1</th>
-            <th>Description2</th>
+            <th>Description</th>
             <th>Link</th>
+            <th>GitHub</th>
             <th>tech</th>
             <th>tech2</th>
             <th>tech3</th>
@@ -143,10 +143,10 @@ if(!$auth){
         <?php while($projectLabs = mysqli_fetch_assoc($resultadoConsultaLabs)): ?>
         <tr class="tr-text">
             <td><?php echo $projectLabs['name']; ?></td>
-            <td><?php echo $projectLabs['description1']; ?></td>
-            <td><?php echo $projectLabs['description2']; ?></td>
+            <td><?php echo substr($projectLabs['description'],0,40); ?></td>
             <td><?php echo $projectLabs['link']; ?></td>
-            <td><?php echo $projectLabs['tech']; ?></td>
+            <td><?php echo $projectLabs['github']; ?></td>
+            <td><?php echo $projectLabs['tech1']; ?></td>
             <td><?php echo $projectLabs['tech2']; ?></td>
             <td><?php echo $projectLabs['tech3']; ?></td>
             <td><img width="80px" src="/images/<?php echo $projectLabs['image']; ?>" /></td>

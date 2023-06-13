@@ -1,9 +1,9 @@
 <?php 
 
-    $id = $_GET['id'];
-    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $idLab = $_GET['idLab'];
+    $idLab = filter_var($idLab, FILTER_VALIDATE_INT);
 
-    if(!$id){
+    if(!$idLab){
         header('Location: /');
     }
 
@@ -12,7 +12,7 @@ require "includes/config/database.php";
 $db = connectDB();
 
 // /consultar
-$query = "SELECT * FROM labs WHERE id = {$id}";
+$query = "SELECT * FROM labs WHERE id = {$idLab}";
 
 // /resultado
 $resul = mysqli_query($db, $query);
@@ -85,6 +85,13 @@ $lab = mysqli_fetch_assoc($resul); //tenemos todo el contenido del registro
             
           </div>
         </div>
+
+        <?php 
+
+mysqli_close($db);
+$idLab = $_GET[null];
+// incluirTemplate('footer'); 
+?>
         
 
         <script>
@@ -116,8 +123,3 @@ $lab = mysqli_fetch_assoc($resul); //tenemos todo el contenido del registro
       </div>
     </div>
 
-    <?php 
-
-mysqli_close($db);
-// incluirTemplate('footer'); 
-?>

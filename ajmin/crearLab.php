@@ -13,13 +13,11 @@ require '../includes/config/database.php';
 $errores = [];
 
 $name = '';
-$description1 = '';
-$description2 = '';
+$description = '';
 $link = '';
+$github = '';
 $image = '';
-$image2 = '';
-$image3 = '';
-$tech = '';
+$tech1 = '';
 $tech2 = '';
 $tech3 = '';
 
@@ -36,23 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
    
     $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-    $description1 = filter_var($_POST['description1'], FILTER_SANITIZE_SPECIAL_CHARS);
-    $description2 = filter_var($_POST['description2'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
     $link = filter_var($_POST['link'], FILTER_SANITIZE_SPECIAL_CHARS);
-    $tech = $_POST['tech'];
+    $github = filter_var($_POST['link'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $tech1 = $_POST['tech1'];
     $tech2 = $_POST['tech2'];
     $tech3 = $_POST['tech3'];
     
 
     $image = $_FILES['image'];
-    $image2 = $_FILES['image2'];
-    $image3 = $_FILES['image3'];
 
     if(!$name) {
         $errores[] = "Debes añadir un name";
     }
 
-    if(!$description1) {
+    if(!$description) {
         $errores[] = "La descripción es obligatoria";
     }
 
@@ -61,7 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "olvidastes el link";
     }
 
-    if (!$tech) {
+    if (!$github) {
+        $errores[] = "olvidastes el link";
+    }
+
+    if (!$tech1) {
         $errores[] = "olvidastes el tech";
     }
 
@@ -78,13 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "La image es muy grande";
     }
 
-    if ($image2['size'] > $medida) {
-        $errores[] = "La image es muy grande";
-    }
-
-    if ($image3['size'] > $medida) {
-        $errores[] = "La imagen es muy grande";
-    }
 
 //     echo "<pre>";
 //     var_dump($_POST);
@@ -113,8 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // /generar nombre unico
         $nombreImagen = md5(uniqid( rand(), true )) . ".jpg";
-        $nombreImagen2 = md5(uniqid( rand(), true )) . ".jpg";
-        $nombreImagen3 = md5(uniqid( rand(), true )) . ".jpg";
 
         // echo "<pre>";
         // echo (gettype($nombreImagen));
@@ -124,8 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //subir la imagen
         //tmp_name viene de $_FILES
         move_uploaded_file($image['tmp_name'], $carpetaImagenes . $nombreImagen );
-        move_uploaded_file($image2['tmp_name'], $carpetaImagenes . $nombreImagen2 );
-        move_uploaded_file($image3['tmp_name'], $carpetaImagenes . $nombreImagen3 );
 
 //         echo "<pre>";
 // var_dump($_FILES);
@@ -134,8 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
          // /insertar en la base de datos
-        $query = "INSERT INTO labs (name, description1, description2, link, image, image2,image3,tech,tech2,tech3) 
-        VALUES ( '$name', '$description1', '$description2', '$link', '$nombreImagen', '$nombreImagen2','$nombreImagen3', '$tech', '$tech2', '$tech3' )";
+        $query = "INSERT INTO labs (name, description, link, github, image, tech1, tech2, tech3) 
+        VALUES ( '$name', '$description', '$link', '$github', '$nombreImagen', '$tech1', '$tech2', '$tech3' )";
 
         // echo $query;
 
@@ -186,12 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="mb-3">
             <label for="descripcion">Descripcion:</label>
-            <textarea class="form-control" id="description" name="description1"></textarea>
-            </div>
-
-            <div class="mb-3">
-            <label for="description2">Descripcion2:</label>
-            <textarea class="form-control" id="description2" name="descripcion2"></textarea>
+            <textarea class="form-control" id="description" name="description"></textarea>
             </div>
 
             <div class="mb-3">
@@ -200,24 +184,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
+            <label for="github">github:</label>
+            <input class="form-control" type="text" id="github" placeholder="github" name="github" value="<?php echo $github; ?>">
+            </div>
+
+            <div class="mb-3">
             <label for="image">Image:</label>
             <input type="file" id="image" accept="image/jpeg, image/png" name="image" name="image">
-            </div>
-
-            <div class="mb-3">
-                <label for="image2">Image2:</label>
-                <input type="file" id="image2" accept="image/jpeg, image/png" name="image2" name="image2">
-            </div>
-
-            <div class="mb-3">
-            <label for="image3">Image3:</label>
-            <input type="file" id="image3" accept="image/jpeg, image/png" name="image3" name="image3">
             </div>
 
             <label for="pet-select">Choose a Tech:</label>
 
             <div class="mb-3">
-                <select name="tech" id="tech-select">
+                <select name="tech1" id="tech-select">
                     <option value="">--Please choose an option--</option>
                     <option value="html">html</option>
                     <option value="css">css</option>

@@ -6,6 +6,15 @@
 
     $auth = $_SESSION['login'] ?? false;
 
+    $allowed_pages = array('index.php','entrar.php'); // Lista de páginas permitidas
+    $page = isset($_GET['page']) ? $_GET['page'] : 'index.php'; // Obtener la página solicitada
+
+    if (!in_array($page, $allowed_pages)) {
+      // La página no está permitida, redirigir a la página de error
+      header("Location: error.php");
+      exit;
+    }
+
 ?>
 <!doctype html>
 <html lang="en">

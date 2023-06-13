@@ -371,21 +371,36 @@ incluirTemplate('header');
       <div class="portfolio-wrapper">
 
         <div id="posts" class="row">
+          
 
         <?php while($element = mysqli_fetch_assoc($resultLabs)): ?>
-          <div class="item web branding col-sm-6 col-md-6 col-lg-4 isotope-mb-2">
-            <a href="labs.php?id=<?php echo $element['id']; ?>" class="portfolio-item ajax-load-page isotope-item gsap-reveal-img" data-id="1">
-              <div class="overlay">
-                <span class="wrap-icon icon-link2"></span>
-                <div class="portfolio-item-content">
-                  <h3>images/<?php echo $element['name']; ?></h3>
-                  <p>images/<?php echo $element['description1']; ?></p>
-                </div>
+
+            <div class="card m-5" style="width: 18rem;">
+
+              <img src="images/<?php echo $element['image']; ?>" class="lazyload  card-img-top" alt="Images" />
+
+              <div class="card-body">
+                <h5 class="card-title"><?php echo ucfirst($element['name']); ?></h5>
+                <p class="card-text"><?php echo $element['description']; ?></p>
               </div>
-              <img src="images/<?php echo $element['image']; ?>" class="lazyload  img-fluid" alt="Images" />
-            </a>
-          </div>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <img width="50px" <?php echo $element['tech1'] ? 'src=images/'.$element['tech1'] . '.png' : null ?>>
+                  <img width="50px" <?php echo $element['tech2'] ? 'src=images/'.$element['tech2'] . '.png' : null ?>>
+                  <img width="50px" <?php echo $element['tech3'] ? 'src=images/'.$element['tech3'] . '.png' : null ?>>
+                </li>
+              </ul>
+
+              <div class="card-body">
+                <a href="<?php echo $element['link']; ?>" class="card-link fs-1">Link</a>
+                <a href="<?php echo $element['link']; ?>" class="card-link">GitHub</a>
+              </div>
+
+            </div>
+                    
         <?php endwhile; ?>
+
 
 
         </div>
